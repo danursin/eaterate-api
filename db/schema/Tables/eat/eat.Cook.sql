@@ -5,7 +5,7 @@ BEGIN
 		[id] INT IDENTITY(1, 1),
 		[dish_id] INT NOT NULL,
 		[title] VARCHAR(255) NULL,
-		[recipe] VARCHAR(MAX) NOT NULL,
+		[recipe] VARCHAR(5000) NOT NULL,
 		[date_created] DATETIME2(0) NOT NULL DEFAULT (GETUTCDATE()),
 		CONSTRAINT [pk_eat_Cook_id] PRIMARY KEY ([id])
 	)

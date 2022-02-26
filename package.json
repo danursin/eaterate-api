@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Eaterate backend",
   "main": "server.js",
+  "engines": {
+    "node": "16",
+    "npm": "8"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "nodemon server.ts",

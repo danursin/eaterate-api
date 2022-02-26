@@ -21,6 +21,8 @@ import schema from "./graphql";
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
     });
 
+    app.get("/", (_req, res) => res.send("OK"));
+
     await server.start();
     server.applyMiddleware({ app });
 

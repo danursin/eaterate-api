@@ -2,6 +2,7 @@ import { GraphQLObjectType, GraphQLSchema } from "graphql";
 
 import { queries as cookQueries } from "./entities/Cook";
 import { queries as dishQueries } from "./entities/Dish";
+import { queries as ingredientQueries } from "./entities/Ingredient";
 import { queries as unitQueries } from "./entities/Unit";
 
 const schema = new GraphQLSchema({
@@ -10,7 +11,8 @@ const schema = new GraphQLSchema({
         fields: {
             ...cookQueries,
             ...dishQueries,
-            ...unitQueries
+            ...unitQueries,
+            ...ingredientQueries
         }
     })
 });

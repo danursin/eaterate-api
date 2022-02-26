@@ -14,8 +14,8 @@ const Unit: GraphQLObjectType = new GraphQLObjectType({
 export const queries: GraphQLFieldConfigMap<unknown, RequestContext> = {
     units: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(Unit))),
-        resolve: (_source, _args, { db }) => {
-            return db.withSchema("eat").table("Unit");
+        resolve: (_source, _args, { dataSources: { dataService } }) => {
+            return dataService.getUnits();
         }
     },
     unit: {
@@ -26,8 +26,8 @@ export const queries: GraphQLFieldConfigMap<unknown, RequestContext> = {
                 type: new GraphQLNonNull(GraphQLInt)
             }
         },
-        resolve: (_source, { id }: { id: number }, { db }) => {
-            return db.withSchema("eat").table("Unit").where({ id }).first();
+        resolve: (_source, { id }: { id: number }, { dataSources: { dataService } }) => {
+            return dataService.getUnit(id);
         }
     }
 };

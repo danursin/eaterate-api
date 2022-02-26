@@ -16,8 +16,8 @@ const Dish: GraphQLObjectType = new GraphQLObjectType({
 export const queries: GraphQLFieldConfigMap<unknown, RequestContext> = {
     dishes: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(Dish))),
-        resolve: (_source, _args, { db }) => {
-            return db.withSchema("eat").table("Dish");
+        resolve: (_source, _args, { dataSources: { dataService } }) => {
+            return dataService.getDishes();
         }
     },
     dish: {
@@ -28,8 +28,8 @@ export const queries: GraphQLFieldConfigMap<unknown, RequestContext> = {
                 type: new GraphQLNonNull(GraphQLInt)
             }
         },
-        resolve: (_source, { id }: { id: number }, { db }) => {
-            return db.withSchema("eat").table("Dish").where({ id }).first();
+        resolve: (_source, { id }: { id: number }, { dataSources: { dataService } }) => {
+            return dataService.getDish(id);
         }
     }
 };

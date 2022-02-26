@@ -3,6 +3,7 @@ dotenv.config();
 
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import DataService from "./services/DataService";
 import { RequestContext } from "./types";
 import db from "./db";
 import express from "express";
@@ -13,11 +14,10 @@ import schema from "./graphql";
     const app = express();
     const httpServer = http.createServer(app);
 
+    const dataService = new DataService(db);
     const server = new ApolloServer<RequestContext>({
         schema,
-        context: () => {
-            return { db };
-        },
+        dataSources: () => ({ dataService }),
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
     });
 

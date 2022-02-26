@@ -1,16 +1,9 @@
+import { CookTable, RequestContext } from "../../types";
 import { GraphQLFieldConfigMap, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 
 import CookEvent from "./CookEvent";
 import CookIngredient from "./CookIngredient";
 import Dish from "./Dish";
-import { RequestContext } from "../../types";
-
-interface CookTable {
-    id: number;
-    dish_id: number;
-    title: string;
-    date_created: string;
-}
 
 const Cook: GraphQLObjectType = new GraphQLObjectType({
     name: "Cook",
@@ -21,20 +14,20 @@ const Cook: GraphQLObjectType = new GraphQLObjectType({
         recipe: { type: new GraphQLNonNull(GraphQLString) },
         dish: {
             type: new GraphQLNonNull(Dish),
-            resolve: ({ id }, _args, { db }) => {
-                return db.withSchema("eat").table("Dish").where({ cook_id: id }).first();
+            resolve: ({ dish_id }, _args, { dataSources: { dataService } }) => {
+                return dataService.getDish(dish_id);
             }
         },
         events: {
             type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(CookEvent))),
-            resolve: ({ id }, _args, { db }) => {
-                return db.withSchema("eat").table("CookEvent").where({ cook_id: id });
+            resolve: ({ id }, _args, { dataSources: { dataService } }) => {
+                return dataService.getCookEvents(id);
             }
         },
         ingredients: {
             type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(CookIngredient))),
-            resolve: ({ id }, _args, { db }) => {
-                return db.withSchema("eat").table("CookIngredient").where({ cook_id: id });
+            resolve: ({ id }, _args, { dataSources: { dataService } }) => {
+                return dataService.getCookIngredients(id);
             }
         }
     })
@@ -43,8 +36,8 @@ const Cook: GraphQLObjectType = new GraphQLObjectType({
 export const queries: GraphQLFieldConfigMap<unknown, RequestContext> = {
     cooks: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(Cook))),
-        resolve: (_source, _args, { db }) => {
-            return db.withSchema("eat").table("Cook");
+        resolve: (_source, _args, { dataSources: { dataService } }) => {
+            return dataService.getCooks();
         }
     },
     cook: {
@@ -55,8 +48,8 @@ export const queries: GraphQLFieldConfigMap<unknown, RequestContext> = {
                 type: new GraphQLNonNull(GraphQLInt)
             }
         },
-        resolve: (_source, { id }: { id: number }, { db }) => {
-            return db.withSchema("eat").table("Cook").where({ id }).first();
+        resolve: (_source, { id }: { id: number }, { dataSources: { dataService } }) => {
+            return dataService.getCook(id);
         }
     }
 };

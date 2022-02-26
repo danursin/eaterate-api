@@ -39,6 +39,7 @@
   "dependencies": {
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.6.3",
+    "datasource-sql": "^1.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "graphql": "^16.3.0",

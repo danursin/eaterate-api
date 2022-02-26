@@ -1,0 +1,44 @@
+{
+  "name": "eaterate-api",
+  "version": "0.0.1",
+  "description": "Eaterate backend",
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon server.ts",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danursin/eaterate-api.git"
+  },
+  "keywords": [
+    "cook",
+    "food",
+    "recipe"
+  ],
+  "author": "danursin@gmail.com",
+  "license": "ISC",
+  "homepage": "https://github.com/danursin/eaterate-api#readme",
+  "devDependencies": {
+    "@types/knex": "^0.16.1",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "apollo-server-core": "^3.6.3",
+    "apollo-server-express": "^3.6.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "graphql": "^16.3.0",
+    "knex": "^1.0.3",
+    "tedious": "^14.3.0"
+  }
+}

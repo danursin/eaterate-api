@@ -17,8 +17,9 @@ class DataService extends SQLDataSource<RequestContext> {
     getDish(id: number): Promise<DishTable> {
         return this.db.withSchema(SCHEMA).table("Dish").where({ id }).first();
     }
-    getDishes(): Promise<DishTable[]> {
-        return this.db.withSchema(SCHEMA).table("Dish");
+    async getDishes(): Promise<DishTable[]> {
+        const dishes = await this.db.withSchema(SCHEMA).table("Dish");
+        return dishes
     }
 
     // Unit
